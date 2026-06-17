@@ -22,7 +22,7 @@ public class PatientController {
     public ResponseEntity<String> deletePatient(@PathVariable Long patientId){
         return ResponseEntity.ok("Patient delted successfully");
     }
-    @PutMapping("/{patientId")
+    @PutMapping("/{patientId}")
     public ResponseEntity<String> updatePatient(@PathVariable Long patientId){
         return ResponseEntity.ok("patient deleted succesfully");
     }
