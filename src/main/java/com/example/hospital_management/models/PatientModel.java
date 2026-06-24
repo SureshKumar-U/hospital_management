@@ -18,5 +18,4 @@ public class PatientModel extends BaseModel  {
 
 
 
-
 }
