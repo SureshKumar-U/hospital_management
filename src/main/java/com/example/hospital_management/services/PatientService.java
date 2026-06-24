@@ -3,6 +3,7 @@ package com.example.hospital_management.services;
 import com.example.hospital_management.Repositories.PatientRepository;
 import com.example.hospital_management.dtos.PatientRequestDTO;
 import com.example.hospital_management.dtos.PatientResponseDTO;
+import com.example.hospital_management.exceptions.ResouceNotFoundException;
 import com.example.hospital_management.models.PatientModel;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,6 @@ public class PatientService implements IPatientService{
 
     @Override
     public List<PatientResponseDTO> getAllPatients(){
-
         List<PatientModel> patients = patientRepository.findAll();
          return patients.stream().map(
                  patient-> {
@@ -44,7 +44,6 @@ public class PatientService implements IPatientService{
                 patient.setGender(patientDto.getGender());
                 patientRepository.save(patient);
 
-
         return PatientResponseDTO.builder()
                 .age(patient.getAge())
                 .name(patient.getName())
@@ -61,18 +60,14 @@ public class PatientService implements IPatientService{
     };
 
     public PatientResponseDTO getPatientById(Long patientId){
-      Optional<PatientModel> patient =   patientRepository.findById(patientId);
-       if(patient.isPresent()){
-           PatientModel patientEntity = patient.get();
+      PatientModel patientEntity =   patientRepository.findById(patientId).orElseThrow(()-> new ResouceNotFoundException("Patient Not Found"));
            return PatientResponseDTO.builder()
                    .id(patientEntity.getId())
                    .name(patientEntity.getName())
                    .gender(patientEntity.getGender())
                    .age(patientEntity.getAge())
                    .build();
-       }else{
-            return null;
-       }
+
 
     };
 

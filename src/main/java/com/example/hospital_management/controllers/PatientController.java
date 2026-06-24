@@ -37,13 +37,11 @@ public class PatientController {
     @DeleteMapping("/{patientId}")
     public ResponseEntity<String> deletePatient(@PathVariable Long patientId){
         patientService.deletePatient(patientId);
-        return ResponseEntity.ok("Patient delted successfully");
+        return ResponseEntity.ok("Patient deleted successfully");
     }
     @PutMapping("/{patientId}")
     public ResponseEntity<PatientResponseDTO> updatePatient(@PathVariable Long patientId, @RequestBody PatientRequestDTO patientDto){
       return  ResponseEntity.ok( patientService.updatePatient(patientId, patientDto));
     }
-
-
 
 }
